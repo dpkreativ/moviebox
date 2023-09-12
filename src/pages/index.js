@@ -1,6 +1,14 @@
 import Image from "next/image";
 import Seo from "@/components/Seo";
-import { MenuIcon, PlayIcon, SearchIcon } from "@/assets/icons";
+import {
+  FacebookIcon,
+  InstagramIcon,
+  MenuIcon,
+  PlayIcon,
+  SearchIcon,
+  TwitterIcon,
+  YouTubeIcon,
+} from "@/assets/icons";
 import { imdb, logo, rotten_tomatoes } from "@/assets/images";
 import { MovieCard } from "@/components/Cards";
 
@@ -22,7 +30,7 @@ export default function Home() {
             <form className="border-2 border-[#D1D5DB] rounded-md px-3 py-1 w-[525px] flex justify-between items-center">
               <input
                 type="text"
-                className="bg-transparent placeholder:text-white"
+                className="bg-transparent placeholder:text-white outline-none"
                 placeholder="What do you want to watch?"
                 id="search"
               />
@@ -108,7 +116,30 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer></footer>
+      <footer className="p-5">
+        <div className="max-w-7xl mx-auto grid gap-9">
+          {/* Socials */}
+          <div className="flex items-center gap-12 w-max mx-auto">
+            <FacebookIcon />
+            <InstagramIcon />
+            <TwitterIcon />
+            <YouTubeIcon />
+          </div>
+
+          {/* Sitelinks */}
+          <div className="flex items-center gap-12 w-max mx-auto">
+            <span>Conditions of Use</span>
+            <span>Privacy &amp; Policy</span>
+            <span>Press Room</span>
+          </div>
+
+          {/* Copyright */}
+          <div className="w-max mx-auto">
+            &copy; {new Date().getFullYear()}. This product uses the TMDB API
+            but is not endorsed or certified by TMDB.
+          </div>
+        </div>
+      </footer>
     </>
   );
 }
