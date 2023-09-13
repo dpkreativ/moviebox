@@ -9,16 +9,26 @@ import {
   TwitterIcon,
   YouTubeIcon,
 } from "@/assets/icons";
-import { imdb, logo, rotten_tomatoes } from "@/assets/images";
 import { MovieCard } from "@/components/Cards";
+import { getConfig, getMovies } from "@/lib/utils";
+import { logo } from "@/assets/images";
 
-export default function Home() {
+export async function getStaticProps() {
+  const config = await getConfig();
+  const movies = await getMovies();
+
+  return { props: { config, movies } };
+}
+
+export default function Home({ config, movies }) {
+  const topTen = movies.slice(0, 10);
+
   return (
     <>
-      <Seo title="Home" />
+      <Seo />
       {/* Header */}
-      <header className="p-5 absolute w-full text-white">
-        <div className="flex justify-between items-center max-w-7xl mx-auto">
+      <header className="absolute w-full text-white">
+        <div className="flex justify-between items-center p-5 max-w-7xl mx-auto">
           {/* Branding */}
           <div className="flex gap-6 items-center">
             <Image src={logo} alt="Movie Box logo" />
@@ -26,7 +36,7 @@ export default function Home() {
           </div>
 
           {/* Search */}
-          <div>
+          <div className="hidden md:block">
             <form className="border-2 border-[#D1D5DB] rounded-md px-3 py-1 w-[525px] flex justify-between items-center">
               <input
                 type="text"
@@ -56,28 +66,17 @@ export default function Home() {
       {/* Main content */}
       <main>
         {/* Hero section */}
-        <section className="h-[600px] bg-gray-800 text-white">
-          <div className="flex justify-between items-center max-w-7xl mx-auto h-full">
+        <section
+          style={{
+            backgroundImage: `url(${config.images.secure_base_url}${config.images.secure_base_url}${config.images.backdrop_sizes[2]}${topTen[0].poster_path})`,
+          }}
+          className="h-[600px] bg-gray-800 text-white"
+        >
+          <div className="flex justify-between items-center p-5 max-w-7xl mx-auto h-full">
             <div className="w-full max-w-md grid gap-4">
-              <h1 className="font-bold text-5xl">Movie title</h1>
+              <h1 className="font-bold text-5xl">{topTen[0].title}</h1>
 
-              <div className="flex items-center gap-10 text-xs">
-                <div className="flex items-center gap-3">
-                  <Image alt="imdb" src={imdb} />
-                  <span>00/00</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Image alt="rotten tomatoes" src={rotten_tomatoes} />
-                  <span>00%</span>
-                </div>
-              </div>
-
-              <div>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                eu dui sit amet justo ullamcorper laoreet at sed nulla. Quisque
-                eget rutrum felis. Etiam sed mauris mi. In nec tortor nibh.
-                Mauris nec dui est.
-              </div>
+              <div>{topTen[0].overview}</div>
 
               <div>
                 <button className="flex items-center text-white bg-[#BE123C] rounded-md gap-2 px-4 py-[6px]">
@@ -91,7 +90,7 @@ export default function Home() {
 
         {/* Featured Movies */}
         <section className="my-20">
-          <div className="max-w-7xl mx-auto">
+          <div className="p-5 max-w-7xl mx-auto">
             {/* Section title and see more */}
             <div className="flex items-center justify-between mb-10">
               <h2 className="font-bold text-4xl">Featured Movie</h2>
@@ -102,24 +101,24 @@ export default function Home() {
 
             {/* Movie cards */}
             <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-              <MovieCard />
-              <MovieCard />
-              <MovieCard />
-              <MovieCard />
-              <MovieCard />
-              <MovieCard />
-              <MovieCard />
-              <MovieCard />
+              {topTen.map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  title={movie.title}
+                  year={movie.release_date}
+                  imageUrl={`${config.images.secure_base_url}${config.images.secure_base_url}${config.images.poster_sizes[4]}${movie.poster_path}`}
+                />
+              ))}
             </div>
           </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="p-5">
-        <div className="max-w-7xl mx-auto grid gap-9">
+      <footer className="text-center">
+        <div className="p-5 max-w-7xl mx-auto grid gap-9">
           {/* Socials */}
-          <div className="flex items-center gap-12 w-max mx-auto">
+          <div className="grid grid-cols-2 md:flex items-center gap-12 w-max mx-auto">
             <FacebookIcon />
             <InstagramIcon />
             <TwitterIcon />
@@ -127,14 +126,14 @@ export default function Home() {
           </div>
 
           {/* Sitelinks */}
-          <div className="flex items-center gap-12 w-max mx-auto">
+          <div className="grid md:flex items-center gap-12 w-max mx-auto">
             <span>Conditions of Use</span>
             <span>Privacy &amp; Policy</span>
             <span>Press Room</span>
           </div>
 
           {/* Copyright */}
-          <div className="w-max mx-auto">
+          <div>
             &copy; {new Date().getFullYear()}. This product uses the TMDB API
             but is not endorsed or certified by TMDB.
           </div>
