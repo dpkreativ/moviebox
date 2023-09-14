@@ -16,7 +16,7 @@ export default function Home({ config, movies }) {
   const topTen = movies.slice(0, 10);
 
   return (
-    <HomeLayout>
+    <HomeLayout config={config}>
       {/* Main content */}
       <main>
         {/* Hero section */}

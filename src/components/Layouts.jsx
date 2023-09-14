@@ -1,4 +1,5 @@
 import {
+  CloseIcon,
   FacebookIcon,
   InstagramIcon,
   SearchIcon,
@@ -7,8 +8,29 @@ import {
 } from "@/assets/icons";
 import Logo from "./Logo";
 import Seo from "./Seo";
+import Modal, { useModal } from "./Modal";
+import { useEffect, useState } from "react";
+import { searchMovies } from "@/lib/api";
+import { MovieCard } from "./Cards";
+import { convertToUTC } from "@/lib/utils";
 
-export function HomeLayout({ children }) {
+export function HomeLayout({ config, children }) {
+  // Search
+  const [searchQuery, setSearchQuery] = useState("");
+  const [{ results }, setSearchResults] = useState({ results: [] });
+
+  const { ref, onOpen, onClose } = useModal();
+
+  useEffect(() => {
+    if (!searchQuery) return;
+
+    async function search() {
+      const data = await searchMovies(searchQuery);
+      return data;
+    }
+    search().then((res) => setSearchResults(res));
+  }, [searchQuery]);
+
   return (
     <>
       <Seo />
@@ -18,26 +40,13 @@ export function HomeLayout({ children }) {
           {/* Branding */}
           <Logo />
 
-          {/* Search */}
-          {/* <div className="hidden md:block">
-            <form className="border-2 border-[#D1D5DB] rounded-md px-3 py-1 w-[525px] flex justify-between items-center">
-              <input
-                type="text"
-                className="bg-transparent placeholder:text-white outline-none"
-                placeholder="What do you want to watch?"
-                id="search"
-              />
-              <label htmlFor="search" className="text-white">
-                <SearchIcon />
-              </label>
-            </form>
-          </div> */}
-
           {/* Auth and menu */}
           <div className="flex items-center gap-6">
             <button type="button">Sign in</button>
+
             <button
               type="button"
+              onClick={onOpen}
               className="bg-[#BE123C] text-white rounded-full w-9 h-9 flex items-center justify-center"
             >
               <SearchIcon />
@@ -45,6 +54,51 @@ export function HomeLayout({ children }) {
           </div>
         </div>
       </header>
+
+      {/* Search */}
+      <Modal ref={ref} onClose={onClose}>
+        <div className="sticky top-0 z-50 bg-gray-800/75 rounded-b-xl flex">
+          <form
+            method="dialog"
+            className="border-2 border-[#D1D5DB] bg-gray-800/75 rounded-md px-3 py-1 w-full max-w-[525px] mx-auto flex justify-between items-center"
+          >
+            <input
+              type="text"
+              name="query"
+              className="bg-transparent placeholder:text-white/80 placeholder:text-xs outline-none w-full text-white"
+              placeholder="What do you want to watch?"
+              id="search"
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <label htmlFor="search" className="text-white">
+              <SearchIcon />
+            </label>
+          </form>
+
+          {/* Close button */}
+          <button
+            type="button"
+            onClick={onClose}
+            className="text-white rounded-full w-max text-xs p-2"
+          >
+            <span>close search</span>
+          </button>
+        </div>
+
+        <section className="my-10">
+          <div className="grid gap-10 md:grid-cols-2">
+            {results?.map((movie) => (
+              <MovieCard
+                id={movie.id}
+                key={movie.id}
+                title={movie.title}
+                year={convertToUTC(movie.release_date)}
+                imageUrl={`${config.images.secure_base_url}${config.images.poster_sizes[4]}${movie.poster_path}`}
+              />
+            ))}
+          </div>
+        </section>
+      </Modal>
 
       {/* Main */}
       {children}

@@ -10,7 +10,7 @@ export function MovieCard({
   id = "",
 }) {
   return (
-    <div className="w-full max-w-sm grid gap-3">
+    <div className="w-full max-w-sm grid gap-3 bg-white p-5 rounded-xl">
       {/* Movie Image, type, and favorite */}
       <Link href={`/movies/${id}`}>
         <div

@@ -4,7 +4,7 @@ const GET = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization: `Bearer ${process.env.TMDB_API_ACCESS_TOKEN}`,
+    Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_ACCESS_TOKEN}`,
   },
 };
 
@@ -33,6 +33,17 @@ export async function getTopMovies() {
 // Get movie by id
 export async function getMovieById(movie_id) {
   const url = `${BASE_URL}/movie/${movie_id}?language=en-US`;
+  const options = GET;
+
+  const res = await fetch(url, options);
+  const data = await res.json();
+
+  return data;
+}
+
+// Search movies
+export async function searchMovies(query) {
+  const url = `${BASE_URL}/search/movie?query=${query}&include_adult=false&language=en-US&page=1`;
   const options = GET;
 
   const res = await fetch(url, options);
