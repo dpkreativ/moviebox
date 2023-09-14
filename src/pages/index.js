@@ -29,9 +29,11 @@ export default function Home({ config, movies }) {
           <div className="bg-gray-800/40 w-full h-full">
             <div className="flex justify-between items-center p-5 max-w-7xl mx-auto h-full w-full">
               <div className="w-full max-w-md grid gap-4">
-                <h1 className="font-bold text-5xl">{topTen[0].title}</h1>
+                <h1 className="font-bold text-5xl" data-testid="movie-title">
+                  {topTen[0].title}
+                </h1>
 
-                <div>{topTen[0].overview}</div>
+                <div data-testid="movie-overview">{topTen[0].overview}</div>
 
                 <div>
                   <Link
