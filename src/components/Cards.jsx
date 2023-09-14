@@ -10,10 +10,14 @@ export function MovieCard({
   id = "",
 }) {
   return (
-    <div className="w-full max-w-sm grid gap-3 bg-white p-5 rounded-xl">
+    <div
+      className="w-full max-w-sm grid gap-3 bg-white p-5 rounded-xl"
+      data-testid="movie-card"
+    >
       {/* Movie Image, type, and favorite */}
       <Link href={`/movies/${id}`}>
         <div
+          data-testid="movie-poster"
           style={{ backgroundImage: `url(${imageUrl})` }}
           className={`relative h-[370px] bg-cover rounded-xl overflow-clip`}
         >
@@ -26,9 +30,11 @@ export function MovieCard({
       </Link>
 
       {/* Movie details */}
-      <h3 className="font-bold text-lg">{title}</h3>
+      <h3 className="font-bold text-lg" data-testid="movie-title">
+        {title}
+      </h3>
 
-      <p className="text-xs">
+      <p className="text-xs" data-testid="movie-release-date">
         <span>Release date: </span>
         <span>{year}</span>
       </p>

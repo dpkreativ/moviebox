@@ -33,9 +33,11 @@ export default function MovieById({ config, movie }) {
         <section className="grid gap-3 md:flex justify-between items-center">
           <div className="grid md:flex gap-3 items-center">
             <h1 className="font-bold text-2xl flex gap-3 flex-wrap">
-              <span>{movie.title}</span>
-              <span>{convertToUTC(movie.release_date)}</span>
-              <span>{movie.runtime} mins</span>
+              <span data-testid="movie-title">{movie.title}</span>
+              <span data-testid="movie-release-date">
+                {convertToUTC(movie.release_date)}
+              </span>
+              <span date-testid="movie-runtime">{movie.runtime} mins</span>
             </h1>
             <div className="flex gap-2 flex-wrap">
               {movie.genres.map((genre) => (
@@ -60,7 +62,7 @@ export default function MovieById({ config, movie }) {
         {/* Movie details and showtime */}
         <section className="grid grid-cols-12">
           <div className="col-span-9 grid gap-3">
-            <p>{movie.overview}</p>
+            <p data-testid="movie-overview">{movie.overview}</p>
 
             {/* <p>
               <span>Director: </span>
