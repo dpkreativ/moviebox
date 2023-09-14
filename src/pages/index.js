@@ -1,8 +1,9 @@
 import { PlayIcon } from "@/assets/icons";
 import { MovieCard } from "@/components/Cards";
-import { getConfig, getTopMovies } from "@/lib/utils";
+import { getConfig, getTopMovies } from "@/lib/api";
 import { HomeLayout } from "@/components/Layouts";
 import Link from "next/link";
+import { convertToUTC } from "@/lib/utils";
 
 export async function getStaticProps() {
   const config = await getConfig();
@@ -38,7 +39,7 @@ export default function Home({ config, movies }) {
                     className="w-max flex items-center text-white bg-[#BE123C] rounded-md gap-2 px-4 py-[6px]"
                   >
                     <PlayIcon />
-                    <span>Watch Trailer</span>
+                    <span>Details</span>
                   </Link>
                 </div>
               </div>
@@ -64,7 +65,7 @@ export default function Home({ config, movies }) {
                   id={movie.id}
                   key={movie.id}
                   title={movie.title}
-                  year={movie.release_date}
+                  year={convertToUTC(movie.release_date)}
                   imageUrl={`${config.images.secure_base_url}${config.images.poster_sizes[4]}${movie.poster_path}`}
                 />
               ))}

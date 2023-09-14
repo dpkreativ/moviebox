@@ -1,6 +1,7 @@
 import { star } from "@/assets/images";
 import { MovieLayout } from "@/components/Layouts";
-import { getConfig, getMovieById } from "@/lib/utils";
+import { getConfig, getMovieById } from "@/lib/api";
+import { convertToUTC } from "@/lib/utils";
 import Image from "next/image";
 
 export async function getServerSideProps({ query }) {
@@ -33,7 +34,7 @@ export default function MovieById({ config, movie }) {
           <div className="grid md:flex gap-3 items-center">
             <h1 className="font-bold text-2xl flex gap-3 flex-wrap">
               <span>{movie.title}</span>
-              <span>{movie.release_date}</span>
+              <span>{convertToUTC(movie.release_date)}</span>
               <span>{movie.runtime} mins</span>
             </h1>
             <div className="flex gap-2 flex-wrap">

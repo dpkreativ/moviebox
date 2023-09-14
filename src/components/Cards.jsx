@@ -26,11 +26,12 @@ export function MovieCard({
       </Link>
 
       {/* Movie details */}
+      <h3 className="font-bold text-lg">{title}</h3>
+
       <p className="text-xs">
+        <span>Release date: </span>
         <span>{year}</span>
       </p>
-
-      <h3 className="font-bold text-lg">{title}</h3>
     </div>
   );
 }
