@@ -13,3 +13,11 @@ export function convertToUTC(inputDateStr) {
     return null; // Return null for an invalid date format
   }
 }
+
+export function getGenreNames(genre_ids, genres) {
+  const genreNames = genre_ids.map((id) => {
+    const genre = genres.genres.find((genre) => genre.id === id);
+    return genre ? genre.name : 'Unknown';
+  });
+  return genreNames;
+}

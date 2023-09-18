@@ -1,13 +1,14 @@
-import { HeartIcon } from "@/assets/icons";
-import Image from "next/image";
-import Link from "next/link";
+import { HeartIcon } from '@/assets/icons';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export function MovieCard({
-  type = "Type",
-  year = "Year",
-  title = "Movie title",
-  imageUrl = "",
-  id = "",
+  type = 'Type',
+  year = 'Year',
+  title = 'Movie title',
+  imageUrl = '',
+  id = '',
+  genres = ['larry', 'moe', 'curly'],
 }) {
   return (
     <div
@@ -38,6 +39,12 @@ export function MovieCard({
         <span>Release date: </span>
         <span>{year}</span>
       </p>
+
+      <div className="text-xs flex gap-3">
+        {genres.map((genre, idx) => (
+          <span key={idx}>{genre}</span>
+        ))}
+      </div>
     </div>
   );
 }
