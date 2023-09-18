@@ -50,8 +50,6 @@ async function getTopMovies() {
     };
   });
 
-  console.log(formattedResults);
-
   return formattedResults;
 }
 

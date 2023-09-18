@@ -21,3 +21,5 @@ export function getGenreNames(genre_ids, genres) {
   });
   return genreNames;
 }
+
+export function generate16x9Image() {}
