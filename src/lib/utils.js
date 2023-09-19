@@ -22,9 +22,9 @@
 export function formatDate(inputDate) {
   const options = {
     year: "numeric",
-    month: "short",
-    day: "numeric",
-    weekday: "short",
+    // month: "short",
+    // day: "numeric",
+    // weekday: "short",
   };
   const dateObj = new Date(inputDate);
   return dateObj.toLocaleDateString("en-US", options);

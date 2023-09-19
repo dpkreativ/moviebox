@@ -31,20 +31,18 @@ export function MovieCard({
       </Link>
 
       {/* Movie details */}
+      <p
+        className="text-xs font-bold text-gray-600/50"
+        data-testid="movie-release-date"
+      >
+        USA, {year}
+      </p>
+
       <h3 className="font-bold text-lg" data-testid="movie-title">
         {title}
       </h3>
 
-      <p className="text-xs" data-testid="movie-release-date">
-        <span>Release date: </span>
-        <span>{year}</span>
-      </p>
-
-      <div className="text-xs flex gap-3">
-        {genres.map((genre, idx) => (
-          <span key={idx}>{genre}</span>
-        ))}
-      </div>
+      <div className="text-xs flex gap-3">{genres.join(", ")}</div>
     </div>
   );
 }
