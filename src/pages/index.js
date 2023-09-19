@@ -3,7 +3,7 @@ import { MovieCard } from "@/components/Cards";
 import { getConfig, getTopMovies } from "@/lib/api";
 import { HomeLayout } from "@/components/Layouts";
 import Link from "next/link";
-import { convertToUTC } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 
 export async function getStaticProps() {
   const config = await getConfig();
@@ -75,7 +75,7 @@ export default function Home({ config, movies }) {
                   id={movie.id}
                   key={movie.id}
                   title={movie.title}
-                  year={convertToUTC(movie.release_date)}
+                  year={formatDate(movie.release_date)}
                   genres={movie.genre_names}
                   imageUrl={`${config.images.secure_base_url}${config.images.poster_sizes[4]}${movie.poster_path}`}
                 />

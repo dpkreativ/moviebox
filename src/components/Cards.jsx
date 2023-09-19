@@ -1,18 +1,18 @@
-import { HeartIcon } from '@/assets/icons';
-import Image from 'next/image';
-import Link from 'next/link';
+import { HeartIcon } from "@/assets/icons";
+import Image from "next/image";
+import Link from "next/link";
 
 export function MovieCard({
-  type = 'Type',
-  year = 'Year',
-  title = 'Movie title',
-  imageUrl = '',
-  id = '',
-  genres = ['larry', 'moe', 'curly'],
+  type = "Type",
+  year = "Year",
+  title = "Movie title",
+  imageUrl = "",
+  id = "",
+  genres = ["larry", "moe", "curly"],
 }) {
   return (
     <div
-      className="w-full max-w-sm grid gap-3 bg-white p-5 rounded-xl"
+      className="w-full max-w-sm grid gap-3 bg-white rounded-xl"
       data-testid="movie-card"
     >
       {/* Movie Image, type, and favorite */}

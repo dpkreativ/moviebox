@@ -1,7 +1,7 @@
 import { star } from "@/assets/images";
 import { MovieLayout } from "@/components/Layouts";
 import { getConfig, getMovieById } from "@/lib/api";
-import { convertToUTC } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 
 export async function getServerSideProps({ query }) {
@@ -26,7 +26,7 @@ export default function MovieById({ config, movie }) {
           style={{
             backgroundImage: `url(${config.images.secure_base_url}${config.images.backdrop_sizes[2]}${movie.poster_path})`,
           }}
-          className="h-[500px] bg-gray-800 bg-center rounded-[20px] bg-cover"
+          className="aspect-video bg-gray-800 bg-center rounded-[20px] bg-cover"
         ></section>
 
         {/* Title and rating */}
@@ -35,13 +35,16 @@ export default function MovieById({ config, movie }) {
             <h1 className="font-bold text-2xl flex gap-3 flex-wrap">
               <span data-testid="movie-title">{movie.title}</span>
               <span data-testid="movie-release-date">
-                {convertToUTC(movie.release_date)}
+                {formatDate(movie.release_date)}
               </span>
               <span date-testid="movie-runtime">{movie.runtime} mins</span>
             </h1>
             <div className="flex gap-2 flex-wrap">
-              {movie.genres.map((genre) => (
-                <span className="text-sm border border-[#F8E7EB] rounded-full p-1 text-[#B91C1C]">
+              {movie.genres.map((genre, idx) => (
+                <span
+                  key={idx}
+                  className="text-sm border border-[#F8E7EB] rounded-full p-1 text-[#B91C1C]"
+                >
                   {genre.name}
                 </span>
               ))}
