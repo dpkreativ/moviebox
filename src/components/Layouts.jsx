@@ -12,7 +12,7 @@ import Modal, { useModal } from "./Modal";
 import { useEffect, useState } from "react";
 import { searchMovies } from "@/lib/api";
 import { MovieCard } from "./Cards";
-import { convertToUTC } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 
 export function HomeLayout({ config, children }) {
   // Search
@@ -92,7 +92,7 @@ export function HomeLayout({ config, children }) {
                 id={movie.id}
                 key={movie.id}
                 title={movie.title}
-                year={convertToUTC(movie.release_date)}
+                year={formatDate(movie.release_date)}
                 imageUrl={`${config.images.secure_base_url}${config.images.poster_sizes[4]}${movie.poster_path}`}
               />
             ))}
