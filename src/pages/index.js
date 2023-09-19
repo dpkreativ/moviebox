@@ -1,9 +1,9 @@
-import { PlayIcon } from '@/assets/icons';
-import { MovieCard } from '@/components/Cards';
-import { getConfig, getTopMovies } from '@/lib/api';
-import { HomeLayout } from '@/components/Layouts';
-import Link from 'next/link';
-import { convertToUTC } from '@/lib/utils';
+import { PlayIcon } from "@/assets/icons";
+import { MovieCard } from "@/components/Cards";
+import { getConfig, getTopMovies } from "@/lib/api";
+import { HomeLayout } from "@/components/Layouts";
+import Link from "next/link";
+import { convertToUTC } from "@/lib/utils";
 
 export async function getStaticProps() {
   const config = await getConfig();
@@ -24,16 +24,21 @@ export default function Home({ config, movies }) {
           style={{
             backgroundImage: `url(${config.images.secure_base_url}${config.images.backdrop_sizes[2]}${topTen[0].poster_path})`,
           }}
-          className="h-[600px] bg-cover text-white"
+          className="aspect-[9/16] md:aspect-video bg-cover bg-center text-white"
         >
           <div className="bg-gray-800/40 w-full h-full">
             <div className="flex justify-between items-center p-5 max-w-7xl mx-auto h-full w-full">
-              <div className="w-full max-w-md grid gap-4">
+              <div className="w-full max-w-md grid gap-5">
                 <h1 className="font-bold text-5xl" data-testid="movie-title">
                   {topTen[0].title}
                 </h1>
 
-                <div data-testid="movie-overview">{topTen[0].overview}</div>
+                <div
+                  data-testid="movie-overview"
+                  className="font-light leading-loose"
+                >
+                  {topTen[0].overview}
+                </div>
 
                 <div>
                   <Link
@@ -41,7 +46,7 @@ export default function Home({ config, movies }) {
                     className="w-max flex items-center text-white bg-[#BE123C] rounded-md gap-2 px-4 py-[6px]"
                   >
                     <PlayIcon />
-                    <span>Details</span>
+                    <span>Watch Trailer</span>
                   </Link>
                 </div>
               </div>
@@ -54,8 +59,11 @@ export default function Home({ config, movies }) {
           <div className="p-5 max-w-7xl mx-auto">
             {/* Section title and see more */}
             <div className="flex items-center justify-between mb-10">
-              <h2 className="font-bold text-4xl">Featured Movie</h2>
-              <button type="button" className="text-[#BE123C] text-lg">
+              <h2 className="font-bold text-2xl md:text-4xl">Featured Movie</h2>
+              <button
+                type="button"
+                className="text-[#BE123C] text-sm md:text-base"
+              >
                 See more &#12297;
               </button>
             </div>
