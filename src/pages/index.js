@@ -1,9 +1,9 @@
-import { PlayIcon } from "@/assets/icons";
-import { MovieCard } from "@/components/Cards";
-import { getConfig, getTopMovies } from "@/lib/api";
-import { HomeLayout } from "@/components/Layouts";
-import Link from "next/link";
-import { formatDate } from "@/lib/utils";
+import { PlayIcon } from '@/assets/icons';
+import { MovieCard } from '@/components/Cards';
+import { getConfig, getTopMovies } from '@/lib/api';
+import Layout from '@/components/Layout';
+import Link from 'next/link';
+import { formatDate } from '@/lib/utils';
 
 export async function getStaticProps() {
   const config = await getConfig();
@@ -14,7 +14,7 @@ export async function getStaticProps() {
 
 export default function Home({ config, topMovies }) {
   return (
-    <HomeLayout config={config}>
+    <Layout>
       {/* Main content */}
       <main>
         {/* Hero section */}
@@ -84,6 +84,6 @@ export default function Home({ config, topMovies }) {
           </div>
         </section>
       </main>
-    </HomeLayout>
+    </Layout>
   );
 }

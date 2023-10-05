@@ -1,8 +1,8 @@
-import { star } from "@/assets/images";
-import { MovieLayout } from "@/components/Layouts";
-import { getConfig, getMovieById } from "@/lib/api";
-import { formatDate } from "@/lib/utils";
-import Image from "next/image";
+import { star } from '@/assets/images';
+import Layout from '@/components/Layout';
+import { getConfig, getMovieById } from '@/lib/api';
+import { formatDate } from '@/lib/utils';
+import Image from 'next/image';
 
 export async function getServerSideProps({ query }) {
   const { id } = query;
@@ -19,7 +19,7 @@ export async function getServerSideProps({ query }) {
 
 export default function MovieById({ config, movie }) {
   return (
-    <MovieLayout>
+    <Layout>
       <main className="grid gap-10 md:grid-cols-12 p-5 max-w-7xl mx-auto">
         <div className="grid gap-10 md:col-span-8">
           {/* Movie trailer */}
@@ -96,6 +96,6 @@ export default function MovieById({ config, movie }) {
           </div>
         </div>
       </main>
-    </MovieLayout>
+    </Layout>
   );
 }

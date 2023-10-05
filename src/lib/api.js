@@ -24,7 +24,7 @@ async function getConfig() {
 }
 
 async function getMovieGenres() {
-  const url = `${BASE_URL}/genre/movie/list?language=en'`;
+  const url = `${BASE_URL}/genre/movie/list?language=en`;
   const options = GET;
 
   const res = await fetch(url, options);
