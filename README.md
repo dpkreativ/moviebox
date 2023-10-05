@@ -21,7 +21,7 @@ To get started with MovieBox, follow these simple steps:
 1. **Clone the Repository:** Clone this repository to your local machine using Git:
 
    ```bash
-   git clone https://github.com/yourusername/moviebox.git
+   git clone https://github.com/dpkreativ/moviebox.git
    ```
 
 2. **Install Dependencies:** Navigate to the project directory and install the required dependencies using npm or yarn:
@@ -49,13 +49,13 @@ To get started with MovieBox, follow these simple steps:
 
 5. **Open in Your Browser:** Visit `http://localhost:3000` in your web browser to experience MovieBox.
 
-## Contributing
+<!-- ## Contributing
 
 We welcome contributions from the open-source community to make MovieBox even better. If you'd like to contribute, please follow our [contribution guidelines](CONTRIBUTING.md).
 
 ## License
 
-MovieBox is open-source and released under the [MIT License](LICENSE).
+MovieBox is open-source and released under the [MIT License](LICENSE). -->
 
 ## Feedback and Support
 
