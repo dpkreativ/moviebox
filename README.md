@@ -33,10 +33,10 @@ To get started with MovieBox, follow these simple steps:
    yarn install
    ```
 
-3. **API Key:** You'll need an API key from The Movie Database API (TMDB API) to fetch movie data. Once you have it, create a `.env.local` file in the root directory of the project and add your API key like this:
+3. **API Access Token:** You'll need an API access token from [The Movie Database API (TMDB API)](https://www.themoviedb.org/settings/api) to fetch movie data. Once you have it, create a `.env.local` file in the root directory of the project and add your API key like this:
 
    ```env
-   TMDB_API_KEY=your_api_key_here
+   TMDB_API_ACCESS_TOKEN=your_api_access_token_here
    ```
 
 4. **Start the Development Server:** Run the development server to start exploring MovieBox:
