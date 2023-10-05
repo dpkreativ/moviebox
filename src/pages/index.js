@@ -75,7 +75,6 @@ export default function Home({ config, topMovies }) {
                   id={movie.id}
                   key={movie.id}
                   title={movie.title}
-                  year={formatDate(movie.release_date)}
                   genres={movie.genre_names}
                   imageUrl={`${config.images.secure_base_url}${config.images.poster_sizes[4]}${movie.poster_path}`}
                 />
