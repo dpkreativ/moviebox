@@ -21,21 +21,29 @@
 // Trying out another date format
 export function formatDate(inputDate) {
   const options = {
-    year: "numeric",
+    year: 'numeric',
     // month: "short",
     // day: "numeric",
     // weekday: "short",
   };
   const dateObj = new Date(inputDate);
-  return dateObj.toLocaleDateString("en-US", options);
+  return dateObj.toLocaleDateString('en-US', options);
 }
 
 export function getGenreNames(genre_ids, genres) {
   const genreNames = genre_ids.map((id) => {
     const genre = genres.genres.find((genre) => genre.id === id);
-    return genre ? genre.name : "Unknown";
+    return genre ? genre.name : 'Unknown';
   });
   return genreNames;
 }
 
 export function generate16x9Image() {}
+
+export function findTrailerKey(array) {
+  const trailerObject = array.find(
+    (obj) => obj.name === 'Official Trailer' && obj.type === 'Trailer'
+  );
+
+  return trailerObject.key;
+}
