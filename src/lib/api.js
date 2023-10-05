@@ -1,4 +1,4 @@
-import { getGenreNames } from './utils';
+import { findTrailerKey, getGenreNames } from './utils';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -55,13 +55,31 @@ async function getTopMovies() {
 
 // Get movie by id
 async function getMovieById(movie_id) {
-  const url = `${BASE_URL}/movie/${movie_id}?language=en-US`;
+  const url = `${BASE_URL}/movie/${movie_id}?language=en-US&append_to_response=videos,credits`;
   const options = GET;
 
   const res = await fetch(url, options);
   const data = await res.json();
 
-  return data;
+  const formattedResults = {
+    // ...data,
+    title: data.title,
+    release_date: data.release_date,
+    runtime: data.runtime,
+    genres: data.genres,
+    vote_average: data.vote_average,
+    vote_count: data.vote_count,
+    overview: data.overview,
+    poster_path: data.poster_path,
+    trailer: `https://www.youtube.com/embed/${findTrailerKey(
+      data.videos.results
+    )}`,
+    credits: data.credits,
+  };
+
+  console.log(formattedResults);
+
+  return formattedResults;
 }
 
 // Search movies
