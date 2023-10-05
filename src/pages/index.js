@@ -24,9 +24,9 @@ export default function Home({ config, topMovies }) {
           }}
           className="aspect-[9/16] md:aspect-video bg-cover bg-center text-white"
         >
-          <div className="bg-gray-800/40 w-full h-full">
-            <div className="flex justify-between items-center p-5 max-w-7xl mx-auto h-full w-full">
-              <div className="w-full max-w-md grid gap-5">
+          <div className="bg-black/90 w-full h-full flex items-center">
+            <div className="grid gap-10 grid-cols-2 p-5 max-w-7xl mx-auto w-full">
+              <div className="flex flex-col justify-center gap-10">
                 <h1 className="font-bold text-5xl" data-testid="movie-title">
                   {topMovies[0].title}
                 </h1>
@@ -47,6 +47,16 @@ export default function Home({ config, topMovies }) {
                     <span>Watch Trailer</span>
                   </Link>
                 </div>
+              </div>
+
+              {/* Movie image */}
+              <div className="h-[30rem]">
+                <div
+                  style={{
+                    backgroundImage: `url(${config.images.secure_base_url}${config.images.backdrop_sizes[2]}${topMovies[0].poster_path})`,
+                  }}
+                  className="aspect-[12/16] h-full bg-cover bg-center rounded-lg"
+                ></div>
               </div>
             </div>
           </div>

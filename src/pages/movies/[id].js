@@ -26,51 +26,53 @@ export default function MovieById({ config, movie }) {
           style={{
             backgroundImage: `url(${config.images.secure_base_url}${config.images.backdrop_sizes[2]}${movie.poster_path})`,
           }}
-          className="aspect-[9/16] md:aspect-video bg-cover bg-center text-white flex items-center"
+          className="aspect-[9/16] md:aspect-video bg-cover text-white"
         >
-          <div className="grid gap-10 md:grid-cols-12 p-5 max-w-7xl mx-auto">
-            {/* Trailer */}
-            <div
-              style={{
-                backgroundImage: `url(${config.images.secure_base_url}${config.images.backdrop_sizes[2]}${movie.poster_path})`,
-              }}
-              className="aspect-video bg-gray-800 bg-center rounded-[20px] overflow-clip bg-cover col-span-8"
-            >
-              <iframe
-                className="w-full h-full"
-                src={movie.trailer}
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-              ></iframe>
-            </div>
+          <div className="bg-gray-800/90 w-full h-full flex items-center">
+            <div className="grid gap-10 md:grid-cols-12 p-5 max-w-7xl mx-auto">
+              {/* Trailer */}
+              <div
+                style={{
+                  backgroundImage: `url(${config.images.secure_base_url}${config.images.backdrop_sizes[2]}${movie.poster_path})`,
+                }}
+                className="aspect-video bg-gray-800 bg-center rounded-[20px] overflow-clip bg-cover col-span-8"
+              >
+                <iframe
+                  className="w-full h-full"
+                  src={movie.trailer}
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                ></iframe>
+              </div>
 
-            {/* More details */}
-            <div className="col-span-4">
-              <p>
-                <span>Director: </span>
-                <span>John Doe</span>
-              </p>
-              <p>
-                <span>Writers: </span>
-                <span>John Doe, Jane Doe, Susan Doe</span>
-              </p>
-              <p>
-                <span>Stars: </span>
-                <span>John Doe, Susan Doe, Chris Doe, Ella Doe</span>
-              </p>
+              {/* More details */}
+              <div className="col-span-4">
+                <p>
+                  <span>Director: </span>
+                  <span>John Doe</span>
+                </p>
+                <p>
+                  <span>Writers: </span>
+                  <span>John Doe, Jane Doe, Susan Doe</span>
+                </p>
+                <p>
+                  <span>Stars: </span>
+                  <span>John Doe, Susan Doe, Chris Doe, Ella Doe</span>
+                </p>
 
-              <div className="flex gap-3">
-                <div>Top rated movie #00</div>
-                <div>Awards 0 nominations</div>
+                <div className="flex gap-3">
+                  <div>Top rated movie #00</div>
+                  <div>Awards 0 nominations</div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* Title and rating */}
-        <section className="grid gap-5 md:flex justify-between items-center">
+        <section className="grid gap-5 md:flex justify-between items-center p-5 max-w-7xl mx-auto">
           <div className="grid md:flex gap-3 items-center">
             <h1 className="font-bold text-2xl flex gap-3 flex-wrap">
               <span data-testid="movie-title">{movie.title}</span>
@@ -105,8 +107,8 @@ export default function MovieById({ config, movie }) {
         </section>
 
         {/* Movie details and showtime */}
-        <section className="grid grid-cols-12">
-          <div className="col-span-9 grid gap-3">
+        <section className="grid md:grid-cols-12 p-5 max-w-7xl mx-auto">
+          <div className="md:col-span-9 grid gap-3">
             <p data-testid="movie-overview" className="leading-loose">
               {movie.overview}
             </p>
