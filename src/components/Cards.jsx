@@ -1,4 +1,3 @@
-import { HeartIcon } from '@/assets/icons';
 import Link from 'next/link';
 
 export function MovieCard({
@@ -17,14 +16,8 @@ export function MovieCard({
         <div
           data-testid="movie-poster"
           style={{ backgroundImage: `url(${imageUrl})` }}
-          className={`relative h-[370px] bg-cover rounded-xl overflow-clip`}
-        >
-          <div className="p-5 flex justify-between bg-gray-900/30 h-full w-full">
-            <div className="bg-[#F3F4F680] text-[#D1D5DB] w-[30px] h-[30px] flex items-center justify-center rounded-full">
-              <HeartIcon />
-            </div>
-          </div>
-        </div>
+          className="aspect-[7/10] w-full max-w-xs bg-cover bg-center rounded-xl shadow-lg"
+        ></div>
       </Link>
 
       {/* Movie details */}
