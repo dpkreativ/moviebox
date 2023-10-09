@@ -28,16 +28,16 @@ export default function MovieById({ bg_image_config, movie }) {
           style={{
             backgroundImage: `url(${bg_image_config}${movie.poster_path})`,
           }}
-          className="aspect-[9/16] md:aspect-video bg-cover text-white"
+          className="md:aspect-video bg-cover bg-gray-800/90 bg-blend-multiply text-white"
         >
-          <div className="bg-gray-800/90 w-full h-full flex items-center">
-            <div className="grid gap-10 md:grid-cols-12 p-5 max-w-7xl mx-auto">
+          <div className="w-full h-full flex items-center">
+            <div className="grid gap-10 md:grid-cols-12 p-5 max-w-7xl mx-auto mt-24">
               {/* Trailer */}
               <div
                 style={{
                   backgroundImage: `url(${bg_image_config}${movie.poster_path})`,
                 }}
-                className="aspect-video bg-gray-800 bg-center rounded-[20px] overflow-clip bg-cover col-span-8"
+                className="aspect-video bg-gray-800 bg-blend-multiply bg-center rounded-[20px] overflow-clip bg-cover col-span-8"
               >
                 <iframe
                   className="w-full h-full"
