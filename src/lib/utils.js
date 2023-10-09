@@ -41,9 +41,7 @@ export function getGenreNames(genre_ids, genres) {
 export function generate16x9Image() {}
 
 export function findTrailerKey(array) {
-  const trailerObject = array.find(
-    (obj) => obj.name === 'Official Trailer' && obj.type === 'Trailer'
-  );
+  const trailerObject = array.find((obj) => obj.type === 'Trailer');
 
   return trailerObject.key;
 }
