@@ -9,22 +9,24 @@ export async function getServerSideProps({ query }) {
   const config = await getConfig();
   const movie = await getMovieById(id);
 
+  const data = {
+    bg_image_config: `${config.images.secure_base_url}${config.images.backdrop_sizes[2]}`,
+    movie,
+  };
+
   return {
-    props: {
-      config,
-      movie,
-    },
+    props: data,
   };
 }
 
-export default function MovieById({ config, movie }) {
+export default function MovieById({ bg_image_config, movie }) {
   return (
     <Layout>
       <main>
         {/* Movie trailer */}
         <section
           style={{
-            backgroundImage: `url(${config.images.secure_base_url}${config.images.backdrop_sizes[2]}${movie.poster_path})`,
+            backgroundImage: `url(${bg_image_config}${movie.poster_path})`,
           }}
           className="aspect-[9/16] md:aspect-video bg-cover text-white"
         >
@@ -33,7 +35,7 @@ export default function MovieById({ config, movie }) {
               {/* Trailer */}
               <div
                 style={{
-                  backgroundImage: `url(${config.images.secure_base_url}${config.images.backdrop_sizes[2]}${movie.poster_path})`,
+                  backgroundImage: `url(${bg_image_config}${movie.poster_path})`,
                 }}
                 className="aspect-video bg-gray-800 bg-center rounded-[20px] overflow-clip bg-cover col-span-8"
               >

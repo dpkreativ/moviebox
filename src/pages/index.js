@@ -3,16 +3,22 @@ import { MovieCard } from '@/components/Cards';
 import { getConfig, getTopMovies } from '@/lib/api';
 import Layout from '@/components/Layout';
 import Link from 'next/link';
-import { formatDate } from '@/lib/utils';
+// import { formatDate } from '@/lib/utils';
 
 export async function getStaticProps() {
   const config = await getConfig();
   const topMovies = await getTopMovies();
 
-  return { props: { config, topMovies } };
+  const data = {
+    bg_image_config: `${config.images.secure_base_url}${config.images.backdrop_sizes[2]}`,
+    poster_config: `${config.images.secure_base_url}${config.images.poster_sizes[4]}`,
+    top_movies: topMovies,
+  };
+
+  return { props: data };
 }
 
-export default function Home({ config, topMovies }) {
+export default function Home({ bg_image_config, poster_config, top_movies }) {
   return (
     <Layout>
       {/* Main content */}
@@ -20,7 +26,7 @@ export default function Home({ config, topMovies }) {
         {/* Hero section */}
         <section
           style={{
-            backgroundImage: `url(${config.images.secure_base_url}${config.images.backdrop_sizes[2]}${topMovies[0].poster_path})`,
+            backgroundImage: `url(${bg_image_config}${top_movies[0].poster_path})`,
           }}
           className="aspect-[9/16] md:aspect-video bg-cover bg-center text-white"
         >
@@ -28,19 +34,19 @@ export default function Home({ config, topMovies }) {
             <div className="grid gap-10 grid-cols-2 p-5 max-w-7xl mx-auto w-full">
               <div className="flex flex-col justify-center gap-10">
                 <h1 className="font-bold text-5xl" data-testid="movie-title">
-                  {topMovies[0].title}
+                  {top_movies[0].title}
                 </h1>
 
                 <div
                   data-testid="movie-overview"
                   className="font-light leading-loose"
                 >
-                  {topMovies[0].overview}
+                  {top_movies[0].overview}
                 </div>
 
                 <div>
                   <Link
-                    href={`/movies/${topMovies[0].id}`}
+                    href={`/movies/${top_movies[0].id}`}
                     className="w-max flex items-center text-white bg-[#BE123C] rounded-md gap-2 px-4 py-[6px]"
                   >
                     <PlayIcon />
@@ -53,7 +59,7 @@ export default function Home({ config, topMovies }) {
               <div className="h-[30rem]">
                 <div
                   style={{
-                    backgroundImage: `url(${config.images.secure_base_url}${config.images.backdrop_sizes[2]}${topMovies[0].poster_path})`,
+                    backgroundImage: `url(${bg_image_config}${top_movies[0].poster_path})`,
                   }}
                   className="aspect-[12/16] h-full bg-cover bg-center rounded-lg"
                 ></div>
@@ -80,13 +86,13 @@ export default function Home({ config, topMovies }) {
 
             {/* Movie cards */}
             <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-              {topMovies.map((movie) => (
+              {top_movies?.map((movie) => (
                 <MovieCard
                   id={movie.id}
                   key={movie.id}
                   title={movie.title}
                   genres={movie.genre_names}
-                  imageUrl={`${config.images.secure_base_url}${config.images.poster_sizes[4]}${movie.poster_path}`}
+                  imageUrl={`${poster_config}${movie.poster_path}`}
                 />
               ))}
             </div>
