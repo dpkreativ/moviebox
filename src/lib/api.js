@@ -10,7 +10,7 @@ const GET = {
   },
 };
 
-export { getConfig, getTopMovies, getMovieById, searchMovies };
+export { getConfig, getMovies, getMovieById, getTrends, searchMovies };
 
 // Get TMDB API configurations
 async function getConfig() {
@@ -23,8 +23,8 @@ async function getConfig() {
   return data;
 }
 
-async function getMovieGenres() {
-  const url = `${BASE_URL}/genre/movie/list?language=en`;
+async function getGenres(type) {
+  const url = `${BASE_URL}/genre/${type}/list?language=en`;
   const options = GET;
 
   const res = await fetch(url, options);
@@ -33,15 +33,17 @@ async function getMovieGenres() {
   return data;
 }
 
-// Get top-rated movies from TMDB API
-async function getTopMovies() {
-  const url = `${BASE_URL}/movie/popular?language=en-US&page=1`;
+async function getTrends() {}
+
+// Get movies from TMDB API
+async function getMovies(type) {
+  const url = `${BASE_URL}/movie/${type}?language=en-US&page=1`;
   const options = GET;
 
   const res = await fetch(url, options);
   const data = await res.json();
 
-  const genres = await getMovieGenres();
+  const genres = await getGenres('movie');
 
   const formattedResults = data.results.map((result) => {
     return {
@@ -62,7 +64,6 @@ async function getMovieById(movie_id) {
   const data = await res.json();
 
   const formattedResults = {
-    // ...data,
     title: data.title,
     release_date: data.release_date,
     runtime: data.runtime,
@@ -76,8 +77,6 @@ async function getMovieById(movie_id) {
     )}`,
     credits: data.credits,
   };
-
-  console.log(formattedResults);
 
   return formattedResults;
 }
