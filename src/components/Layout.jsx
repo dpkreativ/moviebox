@@ -27,8 +27,8 @@ export default function Layout({ children }) {
 
 export function Header() {
   return (
-    <header className="absolute w-full text-white">
-      <div className="flex justify-between items-center p-5 max-w-7xl mx-auto">
+    <header className="absolute p-5 w-full text-white">
+      <div className="flex justify-between items-center max-w-7xl mx-auto">
         {/* Branding */}
         <Logo />
 
