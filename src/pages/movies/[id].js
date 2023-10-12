@@ -31,42 +31,59 @@ export default function MovieById({ bg_image_config, movie }) {
           className="md:aspect-video bg-cover bg-gray-800/90 bg-blend-multiply text-white"
         >
           <div className="w-full h-full flex items-center">
-            <div className="grid gap-10 md:grid-cols-12 p-5 max-w-7xl mx-auto mt-24">
+            <div className="grid gap-10 md:grid-cols-12 px-5 py-24 max-w-7xl mx-auto mt-24">
               {/* Trailer */}
               <div
                 style={{
                   backgroundImage: `url(${bg_image_config}${movie.poster_path})`,
                 }}
-                className="aspect-video bg-gray-800 bg-blend-multiply bg-center rounded-[20px] overflow-clip bg-cover col-span-8"
+                className="aspect-video bg-gray-800 bg-blend-multiply bg-center rounded-[20px] overflow-clip bg-cover md:col-span-8"
               >
                 <iframe
                   className="w-full h-full"
                   src={movie.trailer}
                   title="YouTube video player"
-                  frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen
+                  allowFullScreen
                 ></iframe>
               </div>
 
-              {/* More details */}
-              <div className="col-span-4">
-                <p>
-                  <span>Director: </span>
-                  <span>John Doe</span>
+              {/* Movie details */}
+              <div className="md:col-span-4 h-max">
+                <h1 data-testid="movie-title" className="text-3xl font-bold">
+                  {movie.title}
+                </h1>
+                <p
+                  data-testid="movie-overview"
+                  className="leading-loose text-xs"
+                >
+                  {movie.overview}
                 </p>
                 <p>
-                  <span>Writers: </span>
-                  <span>John Doe, Jane Doe, Susan Doe</span>
+                  <span data-testid="movie-release-date">
+                    {formatDate(movie.release_date)}
+                  </span>
+                  <span>&bull;</span>
+                  <span date-testid="movie-runtime">{movie.runtime} mins</span>
                 </p>
-                <p>
-                  <span>Stars: </span>
-                  <span>John Doe, Susan Doe, Chris Doe, Ella Doe</span>
-                </p>
-
-                <div className="flex gap-3">
-                  <div>Top rated movie #00</div>
-                  <div>Awards 0 nominations</div>
+                <div className="flex gap-2 flex-wrap">
+                  {movie.genres.map((genre, idx) => (
+                    <span
+                      key={idx}
+                      className="text-sm border border-[#F8E7EB] rounded-full p-1 text-[#B91C1C]"
+                    >
+                      {genre.name}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-2">
+                  <div>
+                    <Image alt="rating" src={star} width={20} height={20} />
+                  </div>
+                  <p>{movie.vote_average}</p>
+                  <div className="border-l-2 border-[#666666] text-[#666666] pl-2">
+                    {movie.vote_count}
+                  </div>
                 </div>
               </div>
             </div>
@@ -75,45 +92,27 @@ export default function MovieById({ bg_image_config, movie }) {
 
         {/* Title and rating */}
         <section className="grid gap-5 md:flex justify-between items-center p-5 max-w-7xl mx-auto">
-          <div className="grid md:flex gap-3 items-center">
-            <h1 className="font-bold text-2xl flex gap-3 flex-wrap">
-              <span data-testid="movie-title">{movie.title}</span>
-              <span>&bull;</span>
-              <span data-testid="movie-release-date">
-                {formatDate(movie.release_date)}
-              </span>
-              <span>&bull;</span>
-              <span date-testid="movie-runtime">{movie.runtime} mins</span>
-            </h1>
-            <div className="flex gap-2 flex-wrap">
-              {movie.genres.map((genre, idx) => (
-                <span
-                  key={idx}
-                  className="text-sm border border-[#F8E7EB] rounded-full p-1 text-[#B91C1C]"
-                >
-                  {genre.name}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex gap-2">
-            <div>
-              <Image alt="rating" src={star} width={20} height={20} />
-            </div>
-            <p>{movie.vote_average}</p>
-            <div className="border-l-2 border-[#666666] text-[#666666] pl-2">
-              {movie.vote_count}
-            </div>
-          </div>
-        </section>
-
-        {/* Movie details and showtime */}
-        <section className="grid md:grid-cols-12 p-5 max-w-7xl mx-auto">
-          <div className="md:col-span-9 grid gap-3">
-            <p data-testid="movie-overview" className="leading-loose">
-              {movie.overview}
+          {/* More details */}
+          <div className="md:col-span-4 grid h-max gap-5">
+            <p>
+              <div className="text-xs font-bold">Stars</div>
+              <div className="text-xl">{movie.credits.cast?.join(', ')}</div>
             </p>
+
+            <p>
+              <div className="text-xs font-bold">Director</div>
+              <div className="text-xl">{movie.credits.director}</div>
+            </p>
+
+            <p className={movie.credits.writers.length <= 0 ? 'hidden' : ''}>
+              <div className="text-xs font-bold">Writers</div>
+              <div className="text-xl">{movie.credits.writers?.join(', ')}</div>
+            </p>
+
+            {/* <div className="flex gap-3">
+                  <div>Top rated movie #00</div>
+                  <div>Awards 0 nominations</div>
+                </div> */}
           </div>
         </section>
       </main>
