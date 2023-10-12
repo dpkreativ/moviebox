@@ -1,4 +1,4 @@
-import { findTrailerKey, getGenreNames } from './utils';
+import { filterObjects, getGenreNames } from './utils';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -72,12 +72,19 @@ async function getMovieById(movie_id) {
     vote_count: data.vote_count,
     overview: data.overview,
     poster_path: data.poster_path,
-    trailer: `https://www.youtube.com/embed/${findTrailerKey(
-      data.videos.results
-    )}`,
-    credits: data.credits,
+    trailer: `https://www.youtube.com/embed/${
+      filterObjects(data.videos.results, 'type', 'Trailer')[0].key
+    }`,
+    credits: {
+      director: filterObjects(data.credits.crew, 'job', 'Director')[0].name,
+      writers: filterObjects(data.credits.crew, 'department', 'Writing').map(
+        (person) => person.name
+      ),
+      cast: data.credits.cast.slice(0, 5).map((person) => person.name),
+    },
   };
 
+  // console.log(formattedResults);
   return formattedResults;
 }
 

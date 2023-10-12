@@ -38,10 +38,17 @@ export function getGenreNames(genre_ids, genres) {
   return genreNames;
 }
 
-export function generate16x9Image() {}
+// I haven't used this function for anything yet, so I'm removing it
+// export function generate16x9Image() {}
 
-export function findTrailerKey(array) {
-  const trailerObject = array.find((obj) => obj.type === 'Trailer');
+// Deprecating this one soon in favour of findObj()
+// export function findTrailerKey(array) {
+//   const trailerObject = array.find((obj) => obj.type === 'Trailer');
 
-  return trailerObject.key;
+//   return trailerObject.key;
+// }
+
+export function filterObjects(array, key, param) {
+  const res = array.filter((obj) => obj[key] === param);
+  return res;
 }
