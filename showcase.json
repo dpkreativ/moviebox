@@ -1,4 +1,5 @@
 {
   "project_name": "MovieBox",
-  "description": "A box of movies"
+  "description": "A box of movies",
+  "tools": "Next.js, TailwindCSS"
 }
